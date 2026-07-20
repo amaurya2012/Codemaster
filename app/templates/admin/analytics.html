@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Results Analytics</h2>
+<p class="text-muted">
+  Overall and problem-wise performance with visualization.
+</p>
+
+<hr>
+
+<!-- =========================
+     OVERALL LEADERBOARD
+     ========================= -->
+<h4>Overall Leaderboard</h4>
+
+<table class="table table-bordered table-striped mt-3">
+  <thead class="table-success">
+    <tr>
+      <th>Rank</th>
+      <th>User</th>
+      <th>Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user, score in overall %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ user }}</td>
+      <td>{{ score }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- =========================
+     OVERALL GRAPH
+     ========================= -->
+<canvas id="overallChart" height="100"></canvas>
+
+<hr class="my-5">
+
+<!-- =========================
+     PROBLEM-WISE LEADERBOARDS
+     ========================= -->
+{% for block in problem_stats %}
+<h4>{{ block.problem.title }} ({{ block.problem.marks }} Marks)</h4>
+
+<table class="table table-bordered table-sm mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Rank</th>
+      <th>User</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user, score in block.results %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ user }}</td>
+      <td>{{ score }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<canvas id="problemChart{{ loop.index }}" height="80"></canvas>
+
+<hr class="my-4">
+{% endfor %}
+
+<!-- =========================
+     CHART.JS
+     ========================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+/* =========================
+   OVERALL CHART
+   ========================= */
+const overallCtx = document.getElementById('overallChart').getContext('2d');
+new Chart(overallCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ overall | map(attribute=0) | list | tojson }},
+        datasets: [{
+            label: 'Total Score',
+            data: {{ overall | map(attribute=1) | list | tojson }},
+            backgroundColor: 'rgba(40, 167, 69, 0.7)'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        }
+    }
+});
+</script>
+
+{% for block in problem_stats %}
+<script>
+/* =========================
+   PROBLEM CHART {{ loop.index }}
+   ========================= */
+const ctx{{ loop.index }} = document.getElementById(
+    'problemChart{{ loop.index }}'
+).getContext('2d');
+
+new Chart(ctx{{ loop.index }}, {
+    type: 'bar',
+    data: {
+        labels: {{ block.results | map(attribute=0) | list | tojson }},
+        datasets: [{
+            label: 'Score',
+            data: {{ block.results | map(attribute=1) | list | tojson }},
+            backgroundColor: 'rgba(0, 123, 255, 0.7)'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        }
+    }
+});
+</script>
+{% endfor %}
+
+{% endblock %}

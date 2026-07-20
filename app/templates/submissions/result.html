@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+
+  <!-- =========================
+       RESULT HEADER
+       ========================= -->
+  <div class="card-header
+       {% if status == 'Accepted' %}
+         bg-success text-white
+       {% elif status == 'Wrong Answer' %}
+         bg-danger text-white
+       {% else %}
+         bg-warning
+       {% endif %}">
+    <h4 class="mb-0">
+      Submission Result – {{ status }}
+    </h4>
+  </div>
+
+  <div class="card-body">
+
+    <!-- =========================
+         SUMMARY SECTION
+         ========================= -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <b>Status</b><br>
+        <span class="badge
+          {% if status == 'Accepted' %}
+            bg-success
+          {% elif status == 'Wrong Answer' %}
+            bg-danger
+          {% else %}
+            bg-warning
+          {% endif %}">
+          {{ status }}
+        </span>
+      </div>
+
+      <div class="col-md-4">
+        <b>Marks Obtained</b><br>
+        <span class="badge bg-primary">
+          {{ score }} / {{ total_marks }}
+        </span>
+      </div>
+
+      <div class="col-md-4">
+        <b>Evaluation</b><br>
+        {% if status == "Accepted" %}
+          All test cases passed
+        {% elif status == "Wrong Answer" %}
+          Some test cases failed
+        {% else %}
+          Execution failed
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- =========================
+         PUBLIC TEST CASE DETAILS
+         ========================= -->
+    {% if status == "Wrong Answer" and details %}
+    <hr>
+    <h5>Public Test Case Results</h5>
+
+    <table class="table table-bordered table-sm mt-3">
+      <thead class="table-light">
+        <tr>
+          <th>Input</th>
+          <th>Expected Output</th>
+          <th>Your Output</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in details %}
+        <tr class="{% if d.result == 'Passed' %}table-success{% else %}table-danger{% endif %}">
+          <td><pre class="mb-0">{{ d.input }}</pre></td>
+          <td><pre class="mb-0">{{ d.expected }}</pre></td>
+          <td><pre class="mb-0">{{ d.output }}</pre></td>
+          <td>
+            <b>{{ d.result }}</b>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    <!-- =========================
+         HIDDEN TEST INFO
+         ========================= -->
+    {% if hidden_failed %}
+    <div class="alert alert-warning mt-4">
+      ⚠️ Your solution passed all public test cases but failed on
+      <b>hidden test cases</b>.
+      <br>
+      Hidden test details are not shown.
+    </div>
+    {% endif %}
+
+    <!-- =========================
+         ACTION BUTTONS
+         ========================= -->
+    <hr>
+    <div class="d-flex gap-2">
+      <a href="/problems" class="btn btn-primary">
+        Back to Problems
+      </a>
+      <a href="javascript:history.back()" class="btn btn-secondary">
+        Try Again
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

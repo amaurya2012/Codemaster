@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeMaster</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(15, 23, 42, 0.92) !important;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-btn {
+            margin-left: 8px;
+            border-radius: 8px;
+        }
+
+        /* MAIN CONTENT CARD */
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* BUTTON POLISH */
+        .btn {
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: none;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border: none;
+        }
+
+        /* CODE AREA (GLOBAL) */
+        textarea.code-editor {
+            font-family: Consolas, monospace;
+            font-size: 0.95rem;
+            background: #0f172a;
+            color: #e5e7eb;
+            border-radius: 12px;
+            border: none;
+        }
+
+        textarea.code-editor:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #6366f1;
+            background: #020617;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+     ========================= -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid px-4">
+
+    <!-- Brand -->
+    {% if current_user.is_authenticated %}
+        {% if current_user.role == "admin" %}
+            <a class="navbar-brand" href="/admin">🚀 CodeMaster</a>
+        {% else %}
+            <a class="navbar-brand" href="/dashboard">🚀 CodeMaster</a>
+        {% endif %}
+    {% else %}
+        <a class="navbar-brand" href="/">🚀 CodeMaster</a>
+    {% endif %}
+
+    <!-- Menu -->
+    <div class="d-flex align-items-center">
+
+      {% if current_user.is_authenticated %}
+
+        {% if current_user.role == "admin" %}
+            <a class="btn btn-outline-light btn-sm nav-btn" href="/admin">
+                Admin
+            </a>
+            <a class="btn btn-outline-light btn-sm nav-btn" href="/admin/problems">
+                Manage Problems
+            </a>
+        {% else %}
+            <a class="btn btn-outline-light btn-sm nav-btn" href="/problems">
+                Problems
+            </a>
+            <a class="btn btn-outline-light btn-sm nav-btn" href="/leaderboard">
+                Leaderboard
+            </a>
+        {% endif %}
+
+        <a class="btn btn-danger btn-sm nav-btn" href="/logout">
+            Logout
+        </a>
+
+      {% endif %}
+    </div>
+
+  </div>
+</nav>
+
+<!-- =========================
+     PAGE CONTENT
+     ========================= -->
+<div class="container my-5">
+    <div class="main-container">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

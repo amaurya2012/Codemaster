@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Admin – All Submissions</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Problem</th>
+      <th>Marks</th>
+      <th>Status</th>
+      <th>Language</th>
+      <th>Submitted At</th>
+      <th>View Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s, u, p in submissions %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ p.title }}</td>
+      <td>{{ s.score }} / {{ p.marks }}</td>
+      <td>
+        {% if s.status == "Accepted" %}
+          <span class="badge bg-success">Accepted</span>
+        {% else %}
+          <span class="badge bg-danger">{{ s.status }}</span>
+        {% endif %}
+      </td>
+      <td>{{ s.language }}</td>
+      <td>{{ s.submitted_at }}</td>
+      <td>
+        <a class="btn btn-sm btn-primary"
+           href="/admin/submission/{{ s.id }}">
+           View
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

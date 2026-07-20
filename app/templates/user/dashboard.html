@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- =========================
+     DASHBOARD HEADER
+     ========================= -->
+<div class="mb-4">
+  <h2 class="fw-bold">👋 Welcome Back</h2>
+  <p class="text-muted">
+    Practice coding problems, track your progress, and climb the leaderboard.
+  </p>
+</div>
+
+<!-- =========================
+     MAIN ACTION CARDS
+     ========================= -->
+<div class="row g-4 mb-5">
+
+  <!-- Practice Problems -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100 border-0 bg-primary text-white">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h4 class="card-title">🧩 Practice Problems</h4>
+          <p class="small">
+            Solve coding challenges to improve your skills.
+          </p>
+        </div>
+        <a href="/problems" class="btn btn-light btn-sm align-self-start">
+          Start Practicing →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100 border-0 bg-success text-white">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h4 class="card-title">🏆 Leaderboard</h4>
+          <p class="small">
+            See how you rank against other users.
+          </p>
+        </div>
+        <a href="/leaderboard" class="btn btn-light btn-sm align-self-start">
+          View Rankings →
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =========================
+     ACTIVITY / INFO SECTION
+     ========================= -->
+<div class="row g-4">
+
+  <!-- Recent Activity -->
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title">📊 Your Activity</h5>
+        <p class="text-muted small">
+          Keep practicing regularly to improve your score.
+        </p>
+
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item">
+            ✔ Attempt problems daily
+          </li>
+          <li class="list-group-item">
+            ✔ Review failed submissions
+          </li>
+          <li class="list-group-item">
+            ✔ Improve accuracy & speed
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips / Motivation -->
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title">💡 Coding Tips</h5>
+        <p class="text-muted small">
+          Consistency is the key to success.
+        </p>
+
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item">
+            💻 Start with easy problems
+          </li>
+          <li class="list-group-item">
+            🧠 Focus on logic before code
+          </li>
+          <li class="list-group-item">
+            ⏱ Optimize only after correctness
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

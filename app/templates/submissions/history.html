@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Submission History</h2>
+<table border="1">
+<tr>
+    <th>Problem ID</th>
+    <th>Status</th>
+    <th>Score</th>
+    <th>Date</th>
+</tr>
+{% for s in submissions %}
+<tr>
+    <td>{{ s.problem_id }}</td>
+    <td>{{ s.status }}</td>
+    <td>{{ s.score }}</td>
+    <td>{{ s.submitted_at }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

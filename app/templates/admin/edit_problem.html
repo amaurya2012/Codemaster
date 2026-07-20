@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">✏️ Edit Problem</h2>
+
+<form method="post">
+
+  <!-- =========================
+       BASIC DETAILS
+       ========================= -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Basic Details
+    </div>
+    <div class="card-body">
+
+      <label class="form-label">Problem Title</label>
+      <input class="form-control mb-3"
+             name="title"
+             value="{{ problem.title }}"
+             required>
+
+      <label class="form-label">Problem Description</label>
+      <textarea class="form-control mb-3"
+                name="description"
+                rows="4"
+                required>{{ problem.description }}</textarea>
+
+      <label class="form-label">Difficulty</label>
+      <select class="form-control mb-3" name="difficulty">
+        <option {% if problem.difficulty=='Easy' %}selected{% endif %}>Easy</option>
+        <option {% if problem.difficulty=='Medium' %}selected{% endif %}>Medium</option>
+        <option {% if problem.difficulty=='Hard' %}selected{% endif %}>Hard</option>
+      </select>
+
+      <label class="form-label">Marks</label>
+      <input type="number"
+             class="form-control"
+             name="marks"
+             value="{{ problem.marks }}"
+             min="1"
+             required>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       SAMPLE I/O
+       ========================= -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Sample Input / Output (Visible to Users)
+    </div>
+    <div class="card-body">
+
+      <label class="form-label">Sample Input</label>
+      <textarea class="form-control mb-3"
+                name="sample_input"
+                rows="2">{{ problem.sample_input }}</textarea>
+
+      <label class="form-label">Sample Output</label>
+      <textarea class="form-control"
+                name="sample_output"
+                rows="2">{{ problem.sample_output }}</textarea>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       PUBLIC TEST CASES
+       ========================= -->
+  <div class="card mb-4 border-success">
+    <div class="card-header fw-bold text-success">
+      Public Test Cases (Shown for Evaluation Feedback)
+    </div>
+    <div class="card-body">
+
+      <label class="form-label">
+        Public Inputs (ONE test per line)
+      </label>
+      <textarea class="form-control mb-3"
+                name="input_data"
+                rows="4"
+                required>{{ problem.input_data }}</textarea>
+
+      <label class="form-label">
+        Expected Outputs (Same order)
+      </label>
+      <textarea class="form-control"
+                name="expected_output"
+                rows="4"
+                required>{{ problem.expected_output }}</textarea>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       HIDDEN TEST CASES
+       ========================= -->
+  <div class="card mb-4 border-danger">
+    <div class="card-header fw-bold text-danger">
+      Hidden Test Cases (Not Visible to Users)
+    </div>
+    <div class="card-body">
+
+      <label class="form-label">
+        Hidden Inputs (ONE test per line)
+      </label>
+      <textarea class="form-control mb-3"
+                name="hidden_input"
+                rows="4"
+                required>{{ problem.hidden_input }}</textarea>
+
+      <label class="form-label">
+        Hidden Expected Outputs
+      </label>
+      <textarea class="form-control"
+                name="hidden_output"
+                rows="4"
+                required>{{ problem.hidden_output }}</textarea>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       ACTION BUTTONS
+       ========================= -->
+  <div class="d-flex gap-2">
+    <button class="btn btn-success">
+      💾 Save Changes
+    </button>
+
+    <a href="{{ url_for('admin.manage_problems') }}"
+       class="btn btn-secondary">
+      Cancel
+    </a>
+  </div>
+
+</form>
+
+{% endblock %}

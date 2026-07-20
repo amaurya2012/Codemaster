@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- =========================
+     PAGE HEADER
+     ========================= -->
+<div class="mb-4">
+  <h2 class="fw-bold">🧩 Coding Problems</h2>
+  <p class="text-muted">
+    Choose a problem and start solving.
+  </p>
+</div>
+
+{% if problems %}
+<div class="card shadow-sm border-0">
+
+  <div class="card-body p-0">
+
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th style="width: 5%;">#</th>
+          <th>Problem Title</th>
+          <th style="width: 15%;">Difficulty</th>
+          <th style="width: 15%;">Marks</th>
+          <th style="width: 15%;">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for p in problems %}
+        <tr>
+
+          <!-- SERIAL -->
+          <td class="fw-semibold">
+            {{ loop.index }}
+          </td>
+
+          <!-- TITLE -->
+          <td>
+            <div class="fw-semibold">{{ p.title }}</div>
+            <div class="text-muted small">
+              Practice logic and problem solving
+            </div>
+          </td>
+
+          <!-- DIFFICULTY -->
+          <td>
+            {% if p.difficulty == "Easy" %}
+              <span class="badge bg-success">Easy</span>
+            {% elif p.difficulty == "Medium" %}
+              <span class="badge bg-warning text-dark">Medium</span>
+            {% else %}
+              <span class="badge bg-danger">Hard</span>
+            {% endif %}
+          </td>
+
+          <!-- MARKS -->
+          <td>
+            {% if p.marks %}
+              <span class="badge bg-secondary">
+                {{ p.marks }} Marks
+              </span>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+
+          <!-- ACTION -->
+          <td>
+            <a href="/problems/{{ p.id }}"
+               class="btn btn-sm btn-primary">
+              Solve →
+            </a>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% else %}
+<div class="alert alert-warning">
+  No problems available.
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row g-4">
+
+  <!-- =====================================
+       LEFT COLUMN – PROBLEM DETAILS
+       ===================================== -->
+  <div class="col-lg-6">
+
+    <!-- HEADER -->
+    <div class="mb-3">
+      <h3 class="fw-bold">{{ problem.title }}</h3>
+
+      <div class="mt-2">
+        <span class="me-3">
+          <b>Difficulty:</b>
+          <span class="badge bg-secondary">{{ problem.difficulty }}</span>
+        </span>
+
+        <span>
+          <b>Marks:</b>
+          <span class="badge bg-success">{{ problem.marks }}</span>
+        </span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- DESCRIPTION -->
+    <div class="mb-4">
+      <h6 class="fw-semibold">📄 Problem Description</h6>
+      <p style="white-space: pre-line;">
+        {{ problem.description }}
+      </p>
+    </div>
+
+    <!-- SAMPLE INPUT / OUTPUT -->
+    {% if problem.sample_input or problem.sample_output %}
+    <div class="row g-3">
+
+      {% if problem.sample_input %}
+      <div class="col-12">
+        <h6 class="fw-semibold">🧪 Sample Input</h6>
+        <pre class="bg-light p-3 rounded border small">
+{{ problem.sample_input }}
+        </pre>
+      </div>
+      {% endif %}
+
+      {% if problem.sample_output %}
+      <div class="col-12">
+        <h6 class="fw-semibold">🧪 Sample Output</h6>
+        <pre class="bg-light p-3 rounded border small">
+{{ problem.sample_output }}
+        </pre>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- =====================================
+       RIGHT COLUMN – CODE SUBMISSION
+       ===================================== -->
+  <div class="col-lg-6">
+
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+
+        <h5 class="fw-semibold mb-3">💻 Submit Your Code</h5>
+
+        <form method="post">
+
+          <!-- LANGUAGE -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Programming Language
+            </label>
+            <select name="language" class="form-select" required>
+              <option value="python">Python</option>
+              <option value="c">C</option>
+              <option value="java">Java</option>
+            </select>
+          </div>
+
+          <!-- WARNING -->
+          <div class="alert alert-warning small">
+            ⛔ <b>Copy–Paste is disabled.</b><br>
+            Please type your solution manually (exam mode).
+          </div>
+
+          <!-- CODE EDITOR -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Your Code
+            </label>
+            <textarea
+              class="form-control code-editor no-paste"
+              name="code"
+              rows="18"
+              placeholder="Type your code here..."
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              wrap="off"
+              required></textarea>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="d-flex gap-2">
+            <button class="btn btn-success px-4">
+              Submit Code
+            </button>
+
+            <a class="btn btn-outline-secondary px-4"
+               href="/problems">
+              Back
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

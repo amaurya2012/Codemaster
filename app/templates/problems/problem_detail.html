@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- =========================
+     PROBLEM HEADER
+     ========================= -->
+<div class="mb-4">
+  <h2 class="fw-bold">{{ problem.title }}</h2>
+
+  <div class="mt-2">
+    <span class="me-3">
+      <b>Difficulty:</b>
+      {% if problem.difficulty == "Easy" %}
+        <span class="badge bg-success">Easy</span>
+      {% elif problem.difficulty == "Medium" %}
+        <span class="badge bg-warning text-dark">Medium</span>
+      {% else %}
+        <span class="badge bg-danger">Hard</span>
+      {% endif %}
+    </span>
+
+    {% if problem.marks %}
+    <span>
+      <b>Marks:</b>
+      <span class="badge bg-secondary">{{ problem.marks }}</span>
+    </span>
+    {% endif %}
+  </div>
+</div>
+
+<hr>
+
+<!-- =========================
+     DESCRIPTION
+     ========================= -->
+<div class="mb-4">
+  <h5 class="fw-semibold">📄 Problem Description</h5>
+  <p class="mt-2" style="white-space: pre-line;">
+    {{ problem.description }}
+  </p>
+</div>
+
+<!-- =========================
+     SAMPLE INPUT / OUTPUT
+     ========================= -->
+{% if problem.sample_input or problem.sample_output %}
+<div class="row g-4 mb-4">
+
+  {% if problem.sample_input %}
+  <div class="col-md-6">
+    <h6 class="fw-semibold">🧪 Sample Input</h6>
+    <pre class="bg-light p-3 rounded border">
+{{ problem.sample_input }}
+    </pre>
+  </div>
+  {% endif %}
+
+  {% if problem.sample_output %}
+  <div class="col-md-6">
+    <h6 class="fw-semibold">🧪 Sample Output</h6>
+    <pre class="bg-light p-3 rounded border">
+{{ problem.sample_output }}
+    </pre>
+  </div>
+  {% endif %}
+
+</div>
+{% endif %}
+
+<!-- =========================
+     ACTION BUTTON
+     ========================= -->
+<div class="mt-4">
+  <a class="btn btn-success px-4 py-2"
+     href="/submit/{{ problem.id }}">
+     Solve Problem →
+  </a>
+
+  <a class="btn btn-outline-secondary ms-2"
+     href="/problems">
+     Back to Problems
+  </a>
+</div>
+
+{% endblock %}

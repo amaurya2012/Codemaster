@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Submitted Code</h3>
+
+<p><b>User:</b> {{ user.username }}</p>
+<p><b>Problem:</b> {{ problem.title }}</p>
+<p><b>Status:</b> {{ submission.status }}</p>
+<p><b>Marks:</b> {{ submission.score }} / {{ problem.marks }}</p>
+
+<hr>
+
+<pre style="background:#f8f9fa; padding:15px;">
+{{ submission.code }}
+</pre>
+
+<a class="btn btn-secondary" href="/admin/results">
+  Back to Results
+</a>
+
+{% endblock %}

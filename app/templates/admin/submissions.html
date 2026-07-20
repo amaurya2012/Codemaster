@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>All Submissions</h3>
+<p class="text-muted">
+  Admin view: user submissions, results, and source code.
+</p>
+
+<table class="table table-bordered table-striped mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>User</th>
+      <th>Problem</th>
+      <th>Status</th>
+      <th>Score</th>
+      <th>Language</th>
+      <th>Submitted At</th>
+      <th>View Code</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for s, u, p in submissions %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ p.title }}</td>
+      <td>
+        <span class="badge 
+          {% if s.status == 'Accepted' %}bg-success
+          {% elif s.status == 'Wrong Answer' %}bg-danger
+          {% else %}bg-warning{% endif %}">
+          {{ s.status }}
+        </span>
+      </td>
+      <td>{{ s.score }}</td>
+      <td>{{ s.language }}</td>
+      <td>{{ s.submitted_at }}</td>
+
+      <!-- VIEW CODE BUTTON -->
+      <td>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          data-bs-toggle="collapse"
+          data-bs-target="#code{{ s.id }}">
+          View
+        </button>
+      </td>
+    </tr>
+
+    <!-- COLLAPSIBLE CODE ROW -->
+    <tr class="collapse" id="code{{ s.id }}">
+      <td colspan="7">
+        <div class="p-3 bg-light border">
+          <b>Submitted Code:</b>
+          <pre style="max-height: 300px; overflow:auto;">
+{{ s.code }}
+          </pre>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

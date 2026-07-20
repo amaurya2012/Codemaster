@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="col-md-4">
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+      <!-- HEADER -->
+      <div class="card-header bg-dark text-white text-center rounded-top-4 py-3">
+        <h4 class="mb-0">🔐 Login to CodeMaster</h4>
+        <small class="text-light">Practice • Compete • Improve</small>
+      </div>
+
+      <!-- BODY -->
+      <div class="card-body p-4">
+
+        <form method="post">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Username</label>
+            <input
+              class="form-control"
+              name="username"
+              placeholder="Enter your username"
+              required>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Password</label>
+            <input
+              class="form-control"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              required>
+          </div>
+
+          <button class="btn btn-primary w-100 py-2 fw-semibold">
+            Login
+          </button>
+
+        </form>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="card-footer text-center bg-light rounded-bottom-4">
+        <span class="text-muted">New here?</span>
+        <a href="/register" class="fw-semibold text-decoration-none">
+          Create account
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

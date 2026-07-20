@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Submission History – {{ problem.title }}</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Status</th>
+      <th>Score</th>
+      <th>Language</th>
+      <th>Submitted At</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for s, u in submissions %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ s.status }}</td>
+      <td>{{ s.score }}</td>
+      <td>{{ s.language }}</td>
+      <td>{{ s.submitted_at }}</td>
+      <td>
+        <details>
+          <summary>View Code</summary>
+          <pre>{{ s.code }}</pre>
+        </details>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="/admin/problems" class="btn btn-secondary">
+  Back
+</a>
+
+{% endblock %}

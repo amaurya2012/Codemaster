@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-3">Admin – Manage Problems</h3>
+
+<!-- =========================
+     ADD NEW PROBLEM FORM
+     ========================= -->
+<form method="post" class="mb-4">
+
+  <!-- PROBLEM TITLE -->
+  <input
+    class="form-control mb-2"
+    name="title"
+    placeholder="Problem Title"
+    required
+  >
+
+  <!-- PROBLEM DESCRIPTION -->
+  <textarea
+    class="form-control mb-2"
+    name="description"
+    placeholder="Problem Description"
+    rows="4"
+    required
+  ></textarea>
+
+  <!-- DIFFICULTY -->
+  <select class="form-control mb-2" name="difficulty" required>
+    <option value="">Select Difficulty</option>
+    <option>Easy</option>
+    <option>Medium</option>
+    <option>Hard</option>
+  </select>
+
+  <!-- MARKS -->
+  <input
+    type="number"
+    class="form-control mb-2"
+    name="marks"
+    placeholder="Marks for this problem (e.g. 10, 20)"
+    min="1"
+    required
+  >
+
+  <!-- SAMPLE INPUT -->
+  <textarea
+    class="form-control mb-2"
+    name="sample_input"
+    placeholder="Sample Input (shown to users)"
+    rows="3"
+  ></textarea>
+
+  <!-- SAMPLE OUTPUT -->
+  <textarea
+    class="form-control mb-2"
+    name="sample_output"
+    placeholder="Sample Output (shown to users)"
+    rows="3"
+  ></textarea>
+
+  <!-- PUBLIC TEST CASE INPUTS -->
+  <textarea
+    class="form-control mb-2"
+    name="input_data"
+    placeholder="Public Test Case Inputs (ONE PER LINE)"
+    rows="5"
+    required
+  ></textarea>
+
+  <!-- PUBLIC EXPECTED OUTPUTS -->
+  <textarea
+    class="form-control mb-2"
+    name="expected_output"
+    placeholder="Public Expected Outputs (ONE PER LINE)"
+    rows="5"
+    required
+  ></textarea>
+
+  <!-- HIDDEN TEST CASE INPUTS -->
+  <textarea
+    class="form-control mb-2"
+    name="hidden_input"
+    placeholder="Hidden Test Inputs (NOT visible to users)"
+    rows="5"
+    required
+  ></textarea>
+
+  <!-- HIDDEN EXPECTED OUTPUTS -->
+  <textarea
+    class="form-control mb-3"
+    name="hidden_output"
+    placeholder="Hidden Expected Outputs (NOT visible to users)"
+    rows="5"
+    required
+  ></textarea>
+
+  <button class="btn btn-primary w-100">
+    Add Problem
+  </button>
+</form>
+
+<hr>
+
+<!-- =========================
+     EXISTING PROBLEMS LIST
+     ========================= -->
+<h4>Existing Problems</h4>
+
+{% if problems %}
+<table class="table table-bordered table-striped align-middle">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Difficulty</th>
+      <th>Marks</th>
+      <th>Public TC</th>
+      <th>Hidden TC</th>
+      <th style="width: 180px;">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for p in problems %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.title }}</td>
+      <td>
+        <span class="badge bg-secondary">{{ p.difficulty }}</span>
+      </td>
+      <td>
+        <span class="badge bg-success">{{ p.marks }}</span>
+      </td>
+      <td>{{ p.input_data.splitlines()|length }}</td>
+      <td>{{ p.hidden_input.splitlines()|length }}</td>
+
+      <!-- ACTIONS (NO DELETE) -->
+      <td>
+        <a href="{{ url_for('admin.edit_problem', pid=p.id) }}"
+           class="btn btn-sm btn-warning">
+          Edit
+        </a>
+
+        <a href="{{ url_for('admin.problem_history', pid=p.id) }}"
+           class="btn btn-sm btn-info mt-1">
+          History
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-warning">
+  No problems added yet.
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Submission History</h3>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>User</th>
+    <th>Problem</th>
+    <th>Status</th>
+    <th>Score</th>
+    <th>Language</th>
+    <th>Submitted At</th>
+    <th>Code</th>
+  </tr>
+
+  {% for s, u, p in submissions %}
+  <tr>
+    <td>{{ u.username }}</td>
+    <td>{{ p.title }}</td>
+    <td>{{ s.status }}</td>
+    <td>{{ s.score }}</td>
+    <td>{{ s.language }}</td>
+    <td>{{ s.submitted_at }}</td>
+    <td>
+      <details>
+        <summary>View Code</summary>
+        <pre>{{ s.code }}</pre>
+      </details>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mb-4">
+  <h2 class="fw-bold">👨‍💼 Admin Dashboard</h2>
+  <p class="text-muted">
+    Manage problems, monitor submissions, and analyze results efficiently.
+  </p>
+</div>
+
+<div class="row g-4">
+
+  <!-- Manage Problems -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100 border-0">
+      <div class="card-body text-center">
+        <h5 class="card-title">🧩 Manage Problems</h5>
+        <p class="text-muted small">
+          Add, edit, and organize coding problems.
+        </p>
+        <a href="/admin/problems" class="btn btn-primary w-100">
+          Open
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Submissions -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100 border-0">
+      <div class="card-body text-center">
+        <h5 class="card-title">📄 View Submissions</h5>
+        <p class="text-muted small">
+          Inspect user code, results, and timestamps.
+        </p>
+        <a href="/admin/submissions" class="btn btn-success w-100">
+          View
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100 border-0">
+      <div class="card-body text-center">
+        <h5 class="card-title">🏆 Leaderboard</h5>
+        <p class="text-muted small">
+          See top performers across all problems.
+        </p>
+        <a href="/admin/leaderboard" class="btn btn-warning w-100">
+          View
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100 border-0">
+      <div class="card-body text-center">
+        <h5 class="card-title">📊 Results Analytics</h5>
+        <p class="text-muted small">
+          Problem-wise & overall performance analysis.
+        </p>
+        <a href="/admin/analytics" class="btn btn-info w-100 text-white">
+          Analyze
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Results -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100 border-0">
+      <div class="card-body text-center">
+        <h5 class="card-title">⬇️ Download Results</h5>
+        <p class="text-muted small">
+          Export full results as CSV file.
+        </p>
+        <a href="/admin/download-results" class="btn btn-secondary w-100">
+          Download CSV
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LOGOUT -->
+<div class="text-end mt-5">
+  <a href="/logout" class="btn btn-danger px-4">
+    Logout
+  </a>
+</div>
+
+{% endblock %}
